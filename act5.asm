@@ -1,0 +1,57 @@
+
+CODIGO SEGMENT PARA PUBLIC 'CODIGO' 
+ASSUME CS:CODIGO  
+
+
+MAIN PROC NEAR   
+    
+     CALL CARIMP
+     CALL COLUMNA 
+     
+     INT 20H
+MAIN ENDP  
+
+    
+COLUMNA PROC NEAR
+         MOV DL, 20 
+  WHILE1:CMP DL, 40
+         JG TERMINA1
+         MOV DH, 10
+         CALL POS 
+         CALL IMPRIME 
+         
+         INC DL
+         JMP WHILE1
+         
+TERMINA1: RET
+COLUMNA ENDP 
+
+POS PROC NEAR
+    MOV AH, 02H
+    MOV BH, 00H
+    INT 10H
+    RET
+    
+POS ENDP  
+
+IMPRIME PROC NEAR
+    MOV AH, 09H
+    MOV BH, 0000H
+    MOV BL,03
+    MOV CX, 01
+    INT 10H  
+    
+    CALL CARIMP     
+    RET
+IMPRIME ENDP   
+
+CARIMP PROC NEAR
+    MOV AH, 08H
+    MOV AL, '*'
+    INT 21H 
+    RET
+CARIMP ENDP
+  
+
+CODIGO ENDS
+END
